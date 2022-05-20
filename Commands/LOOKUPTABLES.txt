@@ -1,0 +1,112 @@
+select * from Staging.Sales_CreditCard_Stg
+
+(CT Core.Sales_CreditCard
+(CreditCardID int,
+CardType varchar(50),
+CardNumber varchar(50),
+ExpMonth int,
+ExpYear int,
+ModifiedDate timestamp(0) )
+ PRIMARY INDEX (CreditCardID );
+ 
+ insert into Core.Sales_CreditCard
+ SEL *                 
+FROM Staging.Sales_CreditCard_Stg
+ select * from Core.Sales_CreditCard)
+
+select * from Staging.Sales_SalesPerson_Stg
+select * from Staging.Sales_SalesReason_Stg
+select * from Staging.Sales_SalesTerritoryHistory_Stg
+select * from Staging.Sales_SpecialOfferProduct_Stg
+
+select * from Staging.Purchase_Vendor_Stg
+(CT Core.Purchase_Product_Vendor
+(ProductID int,
+BusinessEntityID int,
+AverageLeadTime int,
+StandardPrice decimal,
+LastReceiptCost decimal,
+LastReceiptDate timestamp(0),
+MinOrderQty int,
+MaxOrderQty int,
+UnitMeasureCode int)
+PRIMARY INDEX (ProductID);
+ 
+  insert into Core.Purchase_Product_Vendor
+ SEL *                 
+FROM Staging.Purchase_Product_Vendor_Stg
+
+ SELECT * FROM Core.Purchase_Product_Vendor)
+
+select * from Staging.HR_Department_stg
+
+CT Core.Sales_SalesPerson
+(BusinessEntityID int,
+TerritoryID int,
+SalesQuota int,
+Bonus int,
+CommissionnPct decimal,
+SalesYTD int,
+SalesLastYear int,
+rowguid varchar(50),
+ModifiedDate timestamp(0)  )
+ PRIMARY INDEX (BusinessEntityID );
+ 
+ insert into Core.Sales_SalesPerson
+ SEL *                 
+FROM Staging.Sales_SalesPerson_Stg
+
+ select * from Core.Sales_SalesPerson
+
+
+CT Core.Purchase_OrderDetail
+(PurchaseOrderID int,
+PurchaseOrderDetailID int,
+DueDate timestamp(0),
+OrderQty int,
+ProductID int,
+UnitPrice int,
+LineTotal int,
+RecievedQty decimal,
+RejectedQty decimal,
+StockedQty decimal,
+ModifiedDate  timestamp(0))
+ PRIMARY INDEX (PurchaseOrderID);
+ 
+ insert into Core.Purchase_OrderDetail
+ SEL *                 
+FROM Staging.Purchase_OrderDetail_Stg
+
+ SELECT * FROM Core.Purchase_OrderDetail
+ 
+
+CT Core.Person_CountryRegion
+(CountryRegionCode varchar(50),
+Name varchar(50),
+ModifiedDate timestamp(0) )
+ PRIMARY INDEX (BusinessEntityID);
+ 
+ insert into core.Person_CountryRegion
+ SEL *                 
+FROM staging.Person_CountryRegion_Stg
+
+ SELECT * FROM core.Person_CountryRegion
+
+
+
+CT core.Production_ProductCostHistory
+(ProductID int,
+StartDate timestamp(0),
+EndDate timestamp(0),
+StandardCost decimal,
+ModifiedDate timestamp(0) )
+ PRIMARY INDEX (ProductID);
+ 
+ insert into core.Production_ProductCostHistory
+ SEL *                 
+FROM staging.Production_ProductCostHistory_Stg
+
+
+ SELECT * FROM core.Production_ProductCostHistory
+
+core.Production_ProductInventory

@@ -1,0 +1,71 @@
+.sessions 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext "|";
+DROP TABLE WorkOrder_Stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+ 
+CREATE SET TABLE WorkOrder_Stg
+(
+WorkOrderID  varchar(50),
+ProductID     varchar(50),
+OrderQty varchar(50),
+StockedQty varchar(50),
+ScrappedQty varchar(50) ,
+StartDate varchar(50),
+EndDate  varchar(50),
+DueDate  varchar(50),
+ScrapReasonID varchar(50),
+ModifiedDate varchar(50)
+) 
+PRIMARY INDEX WorkOrder_Stg(WorkOrderID);
+DEFINE
+WorkOrderID  (varchar(50)),
+ProductID     (varchar(50)),
+OrderQty (varchar(50)),
+StockedQty (varchar(50)),
+ScrappedQty (varchar(50)) ,
+StartDate (varchar(50)), 
+EndDate  (varchar(50)),
+DueDate  (varchar(50)),
+ScrapReasonID (varchar(50)),
+ModifiedDate (varchar(50))
+FILE="D:\FYP\WorkOrder_Stg.txt";
+
+begin loading
+WorkOrder_Stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into WorkOrder_Stg
+(
+WorkOrderID,
+ProductID,
+OrderQty,
+StockedQty,
+ScrappedQty,
+StartDate,
+EndDate,
+DueDate,
+ScrapReasonID,
+ModifiedDate
+)
+ values
+(
+:WorkOrderID,
+:ProductID,
+:OrderQty,
+:StockedQty,
+:ScrappedQty,
+:StartDate,
+:EndDate,
+:DueDate,
+:ScrapReasonID,
+:ModifiedDate
+);
+end loading;
+LOGOFF;

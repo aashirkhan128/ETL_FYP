@@ -1,0 +1,47 @@
+.sessions 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext ",";
+DROP TABLE Sales_SpecialOfferProduct_Stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+ 
+CREATE SET TABLE Sales_SpecialOfferProduct_Stg
+(
+SpecialOfferID  varchar(50),
+ProductID    varchar(50),
+rowguid varchar(50),
+ModifiedDate varchar(50)
+) 
+PRIMARY INDEX Sales_SpecialOfferProduct_Stg(SpecialOfferID);
+DEFINE
+SpecialOfferID  (varchar(50)),
+ProductID    (varchar(50)),
+rowguid (varchar(50)),
+ModifiedDate (varchar(50))
+FILE="D:\FYP\Text files\Sales.SpecialOfferProduct.txt";
+
+begin loading
+Sales_SpecialOfferProduct_Stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into Sales_SpecialOfferProduct_Stg
+(
+SpecialOfferID,
+ProductID,
+rowguid,
+ModifiedDate
+)
+ values
+(
+:SpecialOfferID,
+:ProductID,
+:rowguid,
+:ModifiedDate
+);
+end loading;
+LOGOFF;

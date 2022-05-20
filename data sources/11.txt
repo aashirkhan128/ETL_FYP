@@ -1,0 +1,4 @@
+Production.TransactionHistory
+Production.WorkOrder 
+Sales.SalesOrderDetail
+Production.TransactionHistoryArchive

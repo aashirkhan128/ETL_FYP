@@ -1,0 +1,67 @@
+.sessions 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext ",";
+DROP TABLE Sales_SalesPerson_Stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+ 
+CREATE SET TABLE Sales_SalesPerson_Stg
+(
+BusinessEntityID   varchar(50),
+TerritoryID    varchar(50),
+SalesQuota varchar(50),
+Bonus varchar(50),
+CommissionnPct varchar(50) ,
+SalesYTD varchar(50),
+SalesLastYear varchar(50),
+rowguid varchar(50),
+ModifiedDate varchar(50)
+) 
+PRIMARY INDEX Sales_SalesPerson_Stg(BusinessEntityID);
+DEFINE
+BusinessEntityID   (varchar(50)),
+TerritoryID    (varchar(50)),
+SalesQuota (varchar(50)),
+Bonus (varchar(50)),
+CommissionnPct (varchar(50)),
+SalesYTD (varchar(50)),
+SalesLastYear (varchar(50)),
+rowguid (varchar(50)),
+ModifiedDate (varchar(50))
+FILE="D:\FYP\Text files\Sales.SalesPerson.txt";
+
+begin loading
+Sales_SalesPerson_Stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into Sales_SalesPerson_Stg
+(
+BusinessEntityID,
+TerritoryID,
+SalesQuota,
+Bonus,
+CommissionnPct,
+SalesYTD,
+SalesLastYear,
+rowguid,
+ModifiedDate 
+)
+ values
+(
+:BusinessEntityID,
+:TerritoryID,
+:SalesQuota,
+:Bonus,
+:CommissionnPct,
+:SalesYTD,
+:SalesLastYear,
+:rowguid,
+:ModifiedDate 
+);
+end loading;
+LOGOFF;

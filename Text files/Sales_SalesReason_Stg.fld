@@ -1,0 +1,47 @@
+.sessions 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext ",";
+DROP TABLE Sales_SalesReason_Stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+ 
+CREATE SET TABLE Sales_SalesReason_Stg
+(
+SalesReasonID  varchar(50),
+Name    varchar(50),
+ReasonType varchar(50),
+ModifiedDate varchar(50)
+) 
+PRIMARY INDEX Sales_SalesReason_Stg(SalesReasonID);
+DEFINE
+SalesReasonID  (varchar(50)),
+Name    (varchar(50)),
+ReasonType (varchar(50)),
+ModifiedDate (varchar(50))
+FILE="D:\FYP\Text files\Sales.SalesReason.txt";
+
+begin loading
+Sales_SalesReason_Stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into Sales_SalesReason_Stg
+(
+SalesReasonID,
+Name,
+ReasonType,
+ModifiedDate 
+)
+ values
+(
+:SalesReasonID,
+:Name,
+:ReasonType,
+:ModifiedDate 
+);
+end loading;
+LOGOFF;

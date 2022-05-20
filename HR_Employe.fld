@@ -1,0 +1,95 @@
+.session 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext "|";
+DROP TABLE HR_Employee_stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+
+CREATE SET TABLE HR_Employee_stg
+(
+BusinessEntityID varchar(50),
+NationalIDNumber varchar(50),
+LoginID varchar(50),
+OrganizationNode varchar(50),
+OrganizationalLevel varchar(50),
+JobTitle varchar(50),
+BirthDate varchar(50),
+MaritalStatus varchar(50),
+Gender varchar(50),
+HireDate varchar(50),
+SalariedFlag varchar(50),
+VaccationHours varchar(50),
+SickLeaveHours varchar(50),
+CurrentFlag varchar(50),
+rowguid varchar(50),
+ModifiedDate varchar(50)
+) 
+PRIMARY INDEX HR_Employee_stg(BusinessEntityID);
+DEFINE
+BusinessEntityID (varchar(50)),
+NationalIDNumber (varchar(50)),
+LoginID (varchar(50)),
+OrganizationNode (varchar(50)),
+OrganizationalLevel (varchar(50)),
+JobTitle (varchar(50)),
+BirthDate (varchar(50)),
+MaritalStatus (varchar(50)),
+Gender (varchar(50)),
+HireDate (varchar(50)),
+SalariedFlag (varchar(50)),
+VaccationHours (varchar(50)),
+SickLeaveHours (varchar(50)),
+CurrentFlag (varchar(50)),
+rowguid (varchar(50)),
+ModifiedDate (varchar(50))
+FILE="D:\FYP\Text files\HR_Employe.txt";
+
+begin loading
+HR_Employee_stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into HR_Employee_stg
+(
+BusinessEntityID,
+NationalIDNumber,
+LoginID,
+OrganizationNode,
+OrganizationalLevel,
+JobTitle,
+BirthDate,
+MaritalStatus,
+Gender,
+HireDate,
+SalariedFlag,
+VaccationHours,
+SickLeaveHours,
+CurrentFlag,
+rowguid,
+ModifiedDate
+)
+ values
+(
+:BusinessEntityID,
+:NationalIDNumber,
+:LoginID,
+:OrganizationNode,
+:OrganizationalLevel,
+:JobTitle,
+:BirthDate,
+:MaritalStatus,
+:Gender,
+:HireDate,
+:SalariedFlag,
+:VaccationHours,
+:SickLeaveHours,
+:CurrentFlag,
+:rowguid,
+:ModifiedDate
+);
+end loading;
+LOGOFF;

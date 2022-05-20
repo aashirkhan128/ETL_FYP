@@ -1,0 +1,43 @@
+.sessions 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext ",";
+DROP TABLE Person_BusinessEntity_Stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+ 
+CREATE SET TABLE Person_BusinessEntity_Stg
+(
+BusinessEntityID  varchar(50),
+rowguid    varchar(50),
+ModifiedDate varchar(50)
+) 
+PRIMARY INDEX Person_BusinessEntity_Stg(BusinessEntityID);
+DEFINE
+BusinessEntityID  (varchar(50)),
+rowguid    (varchar(50)),
+ModifiedDate (varchar(50))
+FILE="D:\FYP\Text files\Person.BusinessEntity.txt";
+
+begin loading
+Person_BusinessEntity_Stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into Person_BusinessEntity_Stg
+(
+BusinessEntityID,
+rowguid,
+ModifiedDate 
+)
+ values
+(
+:BusinessEntityID,
+:rowguid,
+:ModifiedDate
+);
+end loading;
+LOGOFF;

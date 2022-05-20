@@ -1,0 +1,11 @@
+[ODBC]
+DRIVER=Teradata Database ODBC Driver 16.20
+UID=dbc
+Username=dbc
+USEINTEGRATEDSECURITY=0
+Password_X=676666
+EnableWallet=0
+EnablePWD=1
+Description=
+DBCName=192.168.168.128
+DataSourceName=Core

@@ -1,0 +1,55 @@
+.sessions 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext ",";
+DROP TABLE Purchase_ShipMethod_Stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+ 
+CREATE SET TABLE Purchase_ShipMethod_Stg
+(
+ShipMethodID varchar(50),
+Name  varchar(50),
+ShipBase    varchar(50),
+ShipRate varchar(50),
+rowguid    varchar(50),
+ModifiedDate varchar(50)
+) 
+PRIMARY INDEX Purchase_ShipMethod_Stg(ShipMethodID);
+DEFINE
+ShipMethodID (varchar(50)),
+Name  (varchar(50)),
+ShipBase    (varchar(50)),
+ShipRate (varchar(50)),
+rowguid    (varchar(50)),
+ModifiedDate (varchar(50))
+FILE="D:\FYP\Text files\Purchasing.ShipMethod.txt";
+
+begin loading
+Purchase_ShipMethod_Stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into Purchase_ShipMethod_Stg
+(
+ShipMethodID,
+Name,
+ShipBase,
+ShipRate,
+rowguid,
+ModifiedDate
+)
+ values
+(
+:ShipMethodID,
+:Name,
+:ShipBase,
+:ShipRate,
+:rowguid,
+:ModifiedDate
+);
+end loading;
+LOGOFF;

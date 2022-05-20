@@ -1,0 +1,43 @@
+.sessions 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext ",";
+DROP TABLE Person_CountryRegion_Stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+ 
+CREATE SET TABLE Person_CountryRegion_Stg
+(
+CountryRegionCode  varchar(50),
+Name    varchar(50),
+ModifiedDate varchar(50)
+) 
+PRIMARY INDEX Person_CountryRegion_Stg(CountryRegionCode);
+DEFINE
+CountryRegionCode  (varchar(50)),
+Name    (varchar(50)),
+ModifiedDate (varchar(50))
+FILE="D:\FYP\Text files\Person.CountryRegion.txt";
+
+begin loading
+Person_CountryRegion_Stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into Person_CountryRegion_Stg
+(
+CountryRegionCode,
+Name,
+ModifiedDate
+)
+ values
+(
+:CountryRegionCode,
+:Name,
+:ModifiedDate
+);
+end loading;
+LOGOFF;

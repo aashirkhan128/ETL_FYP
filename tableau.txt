@@ -1,0 +1,4 @@
+SELECT "person"."PersonType" AS "persontype",
+  CAST(COUNT(DISTINCT "person"."BusinessEntityID") AS BIGINT) AS "ctd:businessentityid:ok"
+FROM "Core"."Person" "person"
+GROUP BY 1

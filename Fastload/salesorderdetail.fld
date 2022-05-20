@@ -1,0 +1,75 @@
+.sessions 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext "|";
+DROP TABLE Sales_SalesOrderDetail_Stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+ 
+CREATE SET TABLE Sales_SalesOrderDetail_Stg
+(
+SalesOrderID   varchar(50),
+SalesOrderDetailID     varchar(50),
+CarrierTrackingNumber varchar(50),
+OrderQty varchar(50),
+ProductID varchar(50) ,
+SpecialOfferID varchar(50),
+UnitPrice  varchar(50),
+UnitPriceDiscount varchar(50),
+LineTotal varchar(50),
+rowguid varchar(50),
+ModifiedData varchar(50)
+) 
+PRIMARY INDEX Sales_SalesOrderDetail_Stg(SalesOrderID);
+DEFINE
+SalesOrderID   (varchar(50)),
+SalesOrderDetailID     (varchar(50)),
+CarrierTrackingNumber (varchar(50)),
+OrderQty (varchar(50)),
+ProductID (varchar(50)) ,
+SpecialOfferID (varchar(50)),
+UnitPrice  (varchar(50)),
+UnitPriceDiscount (varchar(50)),
+LineTotal (varchar(50)),
+rowguid (varchar(50)),
+ModifiedData (varchar(50))
+FILE="SalesOrderDetail_04.txt";
+
+begin loading
+Sales_SalesOrderDetail_Stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into Sales_SalesOrderDetail_Stg
+(
+SalesOrderID,
+SalesOrderDetailID,
+CarrierTrackingNumber,
+OrderQty,
+ProductID,
+SpecialOfferID,
+UnitPrice,
+UnitPriceDiscount,
+LineTotal,
+rowguid,
+ModifiedData 
+)
+ values
+(
+:SalesOrderID,
+:SalesOrderDetailID,
+:CarrierTrackingNumber,
+:OrderQty,
+:ProductID,
+:SpecialOfferID,
+:UnitPrice,
+:UnitPriceDiscount,
+:LineTotal,
+:rowguid,
+:ModifiedData 
+);
+end loading;
+LOGOFF;

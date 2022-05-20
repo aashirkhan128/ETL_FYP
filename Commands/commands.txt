@@ -1,0 +1,273 @@
+
+
+SEL * FROM DBC.Tables
+select * from Staging.Production_TransactionHistory_Stg
+select * from Staging.Production_TransactionHistoryArchive_Stg
+select * from Staging.Production_WorkOrder_Stg
+select * from Staging.Sales_SalesOrderDetail_Stg
+
+select * from Core.TransactionHistory
+select * from Core.TransactionHistoryArchive
+select * from Core.SalesOrderDetail
+select * from Core.WorkOrder
+
+
+
+
+
+
+
+CT Core.TransactionHistoryArchive
+(TransactionID  int,
+ProductID   int,
+ReferenceOrderID int,
+ReferenceOrderLineID int,
+TransactionDate timestamp(0),
+TransactionType varchar(50),
+Quantity  int,
+ActualCost decimal(8,2),
+ModifiedDate timestamp(0))
+ PRIMARY INDEX (TransactionID);
+
+
+
+insert into Core.TransactionHistoryArchive 
+ SEL *                 
+FROM Staging.Production_TransactionHistoryArchive_Stg_HIST;
+
+
+DROP TABLE Core.TransactionHistoryArchive
+
+select * from Core.TransactionHistoryArchive 
+
+select cast(ActualCost as decimal) from Staging.Production_TransactionHistoryArchive_Stg_HIST;
+
+CT Core.SalesOrderDetail
+(SalesOrderID int,
+SalesOrderDetailID int,
+CarrierTrackingNumber varchar(50),
+OrderQty int,
+ProductID int,
+SpecialOfferID int,
+UnitPrice decimal(8,2),
+UnitPriceDiscount int ,
+LineTotal int,
+rowguid varchar(50),
+ModifiedData timestamp(0) )
+ PRIMARY INDEX (SalesOrderID);
+ 
+
+
+select cast(LineTotal as int) from Staging.Sales_SalesOrderDetail_Stg_HIST;
+
+ select* from Staging.Production_WorkOrder_Stg_HIST;
+ 
+select cast(StartDate as timestamp(6)) from Staging.Production_WorkOrder_Stg_HIST;
+
+
+DEL  FROM Staging.Sales_SalesOrderDetail_Stg_HIST
+WHERE SalesOrderID='SalesOrderID';
+
+CT Core.WorkOrder
+(WorkOrderID int,
+ProductID int,
+OrderQty int,
+StockedQty int,
+ScrappedQty int,
+StartDate date format 'mm/dd/yyyy H:MI',
+EndDate date format 'mm/dd/yyyy H:MI',
+DueDate date format 'mm/dd/yyyy H:MI',
+ScrapReasonID int,
+ModifiedDate date format 'mm/dd/yyyy H:MI' )
+ PRIMARY INDEX (WorkOrderID);
+ 
+ insert into Core.SalesOrderDetail
+ SEL *                 
+FROM Staging.Sales_SalesOrderDetail_Stg_HIST
+
+select * from Core.SalesOrderDetail
+
+
+DROP TABLE Core.WorkOrder
+
+
+
+CREATE SET TABLE STAGING.Production_WorkOrder_Stg ,FALLBACK ,
+     NO BEFORE JOURNAL,
+     NO AFTER JOURNAL,
+     CHECKSUM = DEFAULT,
+     DEFAULT MERGEBLOCKRATIO,
+     MAP = TD_MAP1
+     (
+      WorkOrderID INTEGER,
+      ProductID INTEGER,
+      OrderQty DECIMAL(18,2) ,
+      StockedQty DECIMAL(18,2),
+      ScrappedQty DECIMAL(18,2),
+      StartDate DATE FORMAT 'YYYY-MM-DD',
+      EndDate DATE FORMAT 'YYYY-MM-DD',
+      DueDate DATE FORMAT 'YYYY-MM-DD',
+      ScrapReasonID INTEGER,
+      ModifiedDate DATE FORMAT 'YYYY-MM-DD')
+PRIMARY INDEX Production_WorkOrder_Stg ( WorkOrderID );
+
+
+Select * from core.WorkOrder
+select * from Core.SalesOrderDetail
+select * from core.TransactionHistory
+select * from core.TransactionHistoryArchive
+
+
+
+select * from Staging.Production_TransactionHistory_Stg_HIST
+ 
+ 
+HELP TABLE Staging.Production_TransactionHistory_Stg_HIST;
+
+
+ SEL 
+ CAST(TransactionID AS INTEGER)                 
+,ProductID                     
+,CAST(ReferenceOrderID AS INTEGER)              
+,ReferenceOrderLineID          
+,TransactionDate               
+,TransactionType               
+,CAST(Quantity AS DECIMAL(18,2))                      
+,CAST(ActualCost AS DECIMAL(18,2))                   
+,ModifiedDate 
+FROM Staging.Production_TransactionHistory_Stg_HIST
+
+
+DEL FROM CORE.TRANSACTIONHISTORY;
+
+
+INSERT INTO CORE.TRANSACTIONHISTORY
+SEL * FROM STAGING.PRODUCTION_TRANSACTIONHISTORY_STG_HIST;
+
+SEL CAST(ModifiedData AS DATE)DT,SUM(OrderQty),Sum(UnitPrice) PRICE
+FROM CORE.SalesOrderDetail
+GROUP BY 1;
+
+
+
+
+
+
+select * from Staging.Production_TransactionHistoryArchive_Stg_HIST
+ 
+ 
+HELP TABLE Staging.Production_TransactionHistoryArchive_Stg_HIST
+
+
+
+
+
+ SEL 
+ CAST(TransactionID AS INTEGER)                 
+,ProductID                     
+,CAST(ReferenceOrderID AS INTEGER)              
+,ReferenceOrderLineID          
+,TransactionDate               
+,TransactionType               
+,CAST(Quantity AS DECIMAL(18,2))                      
+,CAST(ActualCost AS DECIMAL(18,2))                   
+,ModifiedDate 
+FROM Staging.Production_TransactionHistoryArchive_Stg_HIST
+
+
+DEL FROM core.TransactionHistoryArchive;
+
+
+INSERT INTO core.TransactionHistoryArchive
+SEL * FROM staging.Production_TransactionHistoryArchive_Stg_HIST;
+
+
+
+select * from Staging.Production_WorkOrder_Stg_HIST;
+ 
+ 
+HELP TABLE Staging.Production_WorkOrder_Stg_HIST
+
+sel
+Cast (WorkOrderID as integer)                  
+,ProductID                     
+,cast (OrderQty AS DECIMAL(18,2))                    
+,cast (StockedQty AS DECIMAL(18,2))                  
+,cast (ScrappedQty AS DECIMAL(18,2))                
+,cast(StartDate DATE FORMAT 'YYYY-MM-DD')                     
+,EndDate                       
+,DueDate                       
+,cast (ScrapReasonID as integer)                 
+,ModifiedDate                  
+from Staging.Production_WorkOrder_Stg_HIST
+
+CREATE SET TABLE STAGING.Production_WorkOrder_Stg ,FALLBACK ,
+     NO BEFORE JOURNAL,
+     NO AFTER JOURNAL,
+     CHECKSUM = DEFAULT,
+     DEFAULT MERGEBLOCKRATIO,
+     MAP = TD_MAP1
+     (
+      WorkOrderID INTEGER,
+      ProductID INTEGER,
+      OrderQty DECIMAL(18,2) ,
+      StockedQty DECIMAL(18,2),
+      ScrappedQty DECIMAL(18,2),
+      StartDate DATE FORMAT 'YYYY-MM-DD',
+      EndDate DATE FORMAT 'YYYY-MM-DD',
+      DueDate DATE FORMAT 'YYYY-MM-DD',
+      ScrapReasonID INTEGER,
+      ModifiedDate DATE FORMAT 'YYYY-MM-DD')
+PRIMARY INDEX Production_WorkOrder_Stg ( WorkOrderID ); 
+
+delete from CORE.WorkOrder
+
+INSERT INTO core.WorkOrder
+SEL * FROM staging.Production_WorkOrder_Stg_HIST;
+
+
+
+select * from staging.Sales_SalesOrderDetail_Stg_HIST
+
+help TABLE staging.Sales_SalesOrderDetail_Stg_HIST
+ SEL 
+ cast(SalesOrderID as integer)                 
+,cast(SalesOrderDetailID as integer)           
+,CarrierTrackingNumber      
+,cast(OrderQty as decimal(10,2))                    
+,ProductID                     
+,SpecialOfferID                
+,cast(UnitPrice as decimal(10,2))                    
+,cast(UnitPriceDiscount as decimal(10,2))           
+,cast(LineTotal as decimal(10,2))                   
+,rowguid                       
+,ModifiedData                  
+FROM Staging.Sales_SalesOrderDetail_Stg_HIST
+
+
+DEL FROM core.SalesOrderDetail
+
+INSERT INTO core.SalesOrderDetail
+SEL * FROM staging.Sales_SalesOrderDetail_Stg_HIST;
+
+drop TABLE core.WorkOrder
+
+CREATE SET TABLE core.WorkOrder ,FALLBACK ,
+     NO BEFORE JOURNAL,
+     NO AFTER JOURNAL,
+     CHECKSUM = DEFAULT,
+     DEFAULT MERGEBLOCKRATIO,
+     MAP = TD_MAP1
+     (
+      WorkOrderID INTEGER,
+      ProductID INTEGER,
+      OrderQty DECIMAL(18,2) ,
+      StockedQty DECIMAL(18,2),
+      ScrappedQty DECIMAL(18,2),
+      StartDate DATE FORMAT 'YYYY-MM-DD',
+      EndDate DATE FORMAT 'YYYY-MM-DD',
+      DueDate DATE FORMAT 'YYYY-MM-DD',
+      ScrapReasonID INTEGER,
+      ModifiedDate DATE FORMAT 'YYYY-MM-DD')
+PRIMARY INDEX core.WorkOrder( WorkOrderID );
+

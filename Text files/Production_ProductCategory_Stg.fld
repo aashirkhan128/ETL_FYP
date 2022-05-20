@@ -1,0 +1,47 @@
+.sessions 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext ",";
+DROP TABLE Production_ProductCategory_Stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+ 
+CREATE SET TABLE Production_ProductCategory_Stg
+(
+ProductCategoryID  varchar(50),
+Name    varchar(50),
+rowguid    varchar(50),
+ModifiedDate varchar(50)
+) 
+PRIMARY INDEX Production_ProductCategory_Stg(ProductCategoryID);
+DEFINE
+ProductCategoryID  (varchar(50)),
+Name    (varchar(50)),
+rowguid    (varchar(50)),
+ModifiedDate (varchar(50))
+FILE="D:\FYP\Text files\Production.ProductCategory.txt";
+
+begin loading
+Production_ProductCategory_Stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into Production_ProductCategory_Stg
+(
+ProductCategoryID,
+Name,
+rowguid,
+ModifiedDate
+)
+ values
+(
+:ProductCategoryID,
+:Name,
+:rowguid,
+:ModifiedDate
+);
+end loading;
+LOGOFF;

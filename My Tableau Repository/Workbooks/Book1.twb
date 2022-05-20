@@ -1,0 +1,423 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 20192.19.0515.1630                               -->
+<workbook original-version='18.1' source-build='2019.2.0 (20192.19.0515.1630)' source-platform='win' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <SheetIdentifierTracking ignorable='true' predowngraded='true' />
+    <WindowsPersistSimpleIdentifiers />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <datasources>
+    <datasource caption='Production_TransactionHistory_Stg (TEST.Production_TransactionHistory_Stg) (TEST)' inline='true' name='federated.0p1lw3017jt7nb1eonehc0cnp0td' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='192.168.168.128' name='teradata.00a0cdm1qh89nr180bzav1t7avlu'>
+            <connection authentication='auth-teradata' class='teradata' disable-unicode='' encryptionMode='' enum-with-permissions='' odbc-connect-string-extras='' odbc-native-protocol='' one-time-sql='SELECT TOP 100 * FROM Test.Production_TransactionHistory_Stg' query-band-spec='' schema='TEST' server='192.168.168.128' source-charset='' username='dbc'>
+              <connection-customization class='teradata' enabled='false' version='18.1'>
+                <vendor name='teradata' />
+                <driver name='teradata' />
+                <customizations>
+                  <customization name='CAP_CREATE_TEMP_TABLES' value='yes' />
+                  <customization name='CAP_SELECT_INTO' value='yes' />
+                  <customization name='CAP_SUPPRESS_QUICK_FILTER_ACCELERATION_VIEWS' value='no' />
+                </customizations>
+              </connection-customization>
+            </connection>
+          </named-connection>
+        </named-connections>
+        <relation connection='teradata.00a0cdm1qh89nr180bzav1t7avlu' name='production_transactionhistory_' table='[TEST].[Production_TransactionHistory_Stg]' type='table' />
+        <metadata-records>
+          <metadata-record class='column'>
+            <remote-name>TransactionID</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[TransactionID]</local-name>
+            <parent-name>[production_transactionhistory_]</parent-name>
+            <remote-alias>TransactionID</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>true</contains-null>
+            <padded-semantics>true</padded-semantics>
+            <collation flag='1' name='LEN_RUS_S2' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ProductID</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[ProductID]</local-name>
+            <parent-name>[production_transactionhistory_]</parent-name>
+            <remote-alias>ProductID</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>true</contains-null>
+            <padded-semantics>true</padded-semantics>
+            <collation flag='1' name='LEN_RUS_S2' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ReferenceOrderID</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[ReferenceOrderID]</local-name>
+            <parent-name>[production_transactionhistory_]</parent-name>
+            <remote-alias>ReferenceOrderID</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>true</contains-null>
+            <padded-semantics>true</padded-semantics>
+            <collation flag='1' name='LEN_RUS_S2' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ReferenceOrderLineID</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[ReferenceOrderLineID]</local-name>
+            <parent-name>[production_transactionhistory_]</parent-name>
+            <remote-alias>ReferenceOrderLineID</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>true</contains-null>
+            <padded-semantics>true</padded-semantics>
+            <collation flag='1' name='LEN_RUS_S2' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>TransactionDate</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[TransactionDate]</local-name>
+            <parent-name>[production_transactionhistory_]</parent-name>
+            <remote-alias>TransactionDate</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>true</contains-null>
+            <padded-semantics>true</padded-semantics>
+            <collation flag='1' name='LEN_RUS_S2' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>TransactionType</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[TransactionType]</local-name>
+            <parent-name>[production_transactionhistory_]</parent-name>
+            <remote-alias>TransactionType</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>true</contains-null>
+            <padded-semantics>true</padded-semantics>
+            <collation flag='1' name='LEN_RUS_S2' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Quantity</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[Quantity]</local-name>
+            <parent-name>[production_transactionhistory_]</parent-name>
+            <remote-alias>Quantity</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>true</contains-null>
+            <padded-semantics>true</padded-semantics>
+            <collation flag='1' name='LEN_RUS_S2' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ActualCost</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[ActualCost]</local-name>
+            <parent-name>[production_transactionhistory_]</parent-name>
+            <remote-alias>ActualCost</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>true</contains-null>
+            <padded-semantics>true</padded-semantics>
+            <collation flag='1' name='LEN_RUS_S2' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ModifiedDate</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[ModifiedDate]</local-name>
+            <parent-name>[production_transactionhistory_]</parent-name>
+            <remote-alias>ModifiedDate</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>true</contains-null>
+            <padded-semantics>true</padded-semantics>
+            <collation flag='1' name='LEN_RUS_S2' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='Actual Cost' datatype='string' name='[ActualCost]' role='dimension' type='nominal' />
+      <column caption='Modified Date' datatype='string' name='[ModifiedDate]' role='dimension' type='nominal' />
+      <column datatype='integer' name='[Number of Records]' role='measure' type='quantitative' user:auto-column='numrec'>
+        <calculation class='tableau' formula='1' />
+      </column>
+      <column caption='Product ID' datatype='string' name='[ProductID]' role='dimension' type='nominal' />
+      <column caption='Reference Order ID' datatype='string' name='[ReferenceOrderID]' role='dimension' type='nominal' />
+      <column caption='Reference Order Line ID' datatype='string' name='[ReferenceOrderLineID]' role='dimension' type='nominal' />
+      <column caption='Transaction Date' datatype='string' name='[TransactionDate]' role='dimension' type='nominal' />
+      <column caption='Transaction ID' datatype='string' name='[TransactionID]' role='dimension' type='nominal' />
+      <column caption='Transaction Type' datatype='string' name='[TransactionType]' role='dimension' type='nominal' />
+      <extract count='-1' enabled='true' units='records'>
+        <connection access_mode='readonly' authentication='auth-none' author-locale='en_US' class='hyper' dbname='D:/New folder/Production_TransactionHistory_Stg (TEST.Production_TransactionHistory_Stg) (TEST).hyper' default-settings='yes' schema='Extract' sslmode='' tablename='Extract' update-time='12/06/2021 05:47:19 PM' username='tableau_internal_user'>
+          <relation name='Extract' table='[Extract].[Extract]' type='table' />
+          <refresh>
+            <refresh-event add-from-file-path='Production_TransactionHistory_Stg (TEST.Production_TransactionHistory_Stg) (TEST)' increment-value='%null%' refresh-type='create' rows-inserted='113443' timestamp-start='2021-12-06 17:47:19.455' />
+          </refresh>
+          <metadata-records>
+            <metadata-record class='column'>
+              <remote-name>TransactionID</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[TransactionID]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>TransactionID</remote-alias>
+              <ordinal>0</ordinal>
+              <family>production_transactionhistory_</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>113443</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='1' name='LEN_RUS_S2' />
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>ProductID</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[ProductID]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>ProductID</remote-alias>
+              <ordinal>1</ordinal>
+              <family>production_transactionhistory_</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>1004</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='1' name='LEN_RUS_S2' />
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>ReferenceOrderID</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[ReferenceOrderID]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>ReferenceOrderID</remote-alias>
+              <ordinal>2</ordinal>
+              <family>production_transactionhistory_</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>26407</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='1' name='LEN_RUS_S2' />
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>ReferenceOrderLineID</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[ReferenceOrderLineID]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>ReferenceOrderLineID</remote-alias>
+              <ordinal>3</ordinal>
+              <family>production_transactionhistory_</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>136</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='1' name='LEN_RUS_S2' />
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>TransactionDate</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[TransactionDate]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>TransactionDate</remote-alias>
+              <ordinal>4</ordinal>
+              <family>production_transactionhistory_</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>997</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='1' name='LEN_RUS_S2' />
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>TransactionType</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[TransactionType]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>TransactionType</remote-alias>
+              <ordinal>5</ordinal>
+              <family>production_transactionhistory_</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>3</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='1' name='LEN_RUS_S2' />
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Quantity</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[Quantity]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>Quantity</remote-alias>
+              <ordinal>6</ordinal>
+              <family>production_transactionhistory_</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>313</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='1' name='LEN_RUS_S2' />
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>ActualCost</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[ActualCost]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>ActualCost</remote-alias>
+              <ordinal>7</ordinal>
+              <family>production_transactionhistory_</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>599</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='1' name='LEN_RUS_S2' />
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>ModifiedDate</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[ModifiedDate]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>ModifiedDate</remote-alias>
+              <ordinal>8</ordinal>
+              <family>production_transactionhistory_</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>997</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='1' name='LEN_RUS_S2' />
+            </metadata-record>
+          </metadata-records>
+        </connection>
+      </extract>
+      <layout dim-ordering='alphabetic' dim-percentage='0.642857' measure-ordering='alphabetic' measure-percentage='0.357143' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Sheet 1'>
+      <table>
+        <view>
+          <datasources />
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+      <simple-id uuid='{7A58DFAE-F416-4F72-A970-792373B0A65E}' />
+    </worksheet>
+  </worksheets>
+  <windows saved-dpi-scale-factor='1.25' source-height='37'>
+    <window class='worksheet' maximized='true' name='Sheet 1'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{747006D4-CC1F-426A-A293-8DF0541FB9D8}' />
+    </window>
+  </windows>
+  <thumbnails>
+    <thumbnail height='192' name='Sheet 1' width='192'>
+      iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAACXBIWXMAABJ0AAASdAHeZh94
+      AAACFUlEQVR4nO3TMQEAIAzAMMC/5yFjRxMFfXpnZg5Eve0A2GQA0gxAmgFIMwBpBiDNAKQZ
+      gDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFI
+      MwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQD
+      kGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBp
+      BiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA
+      0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDN
+      AKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxA
+      mgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZ
+      gDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFI
+      MwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKR9Y+0F
+      fBUOM1sAAAAASUVORK5CYII=
+    </thumbnail>
+  </thumbnails>
+</workbook>

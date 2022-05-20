@@ -1,0 +1,55 @@
+.sessions 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext "|";
+DROP TABLE Sales_Store_stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+ 
+CREATE SET TABLE Sales_Store_stg
+(
+BusinessEntityID varchar(50),
+Name varchar(150),
+SalesPersonID varchar(50),
+Demographics varchar(1000),
+rowguid varchar(150),
+ModifiedDate varchar(150)
+) 
+PRIMARY INDEX Sales_Store_stg(BusinessEntityID);
+DEFINE
+BusinessEntityID (varchar(50)),
+Name (varchar(150)),
+SalesPersonID (varchar(50)),
+Demographics (varchar(1000)),
+rowguid (varchar(150)),
+ModifiedDate (varchar(150))
+FILE="D:\FYP\Text files\Sales_Stores.txt";
+
+begin loading
+Sales_Store_stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into Sales_Store_stg
+(
+BusinessEntityID,
+Name,
+SalesPersonID,
+Demographics,
+rowguid,
+ModifiedDate
+)
+ values
+(
+:BusinessEntityID,
+:Name,
+:SalesPersonID,
+:Demographics,
+:rowguid,
+:ModifiedDate
+);
+end loading;
+LOGOFF;

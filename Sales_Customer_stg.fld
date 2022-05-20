@@ -1,0 +1,59 @@
+.sessions 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext "|";
+DROP TABLE Sales_Customer_stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+ 
+CREATE SET TABLE Sales_Customer_stg
+(
+CustomerID varchar(50),
+PersonID varchar(50),
+StoreID varchar(50),
+TerritoryID varchar(50),
+AccountNumber varchar(50),
+rowguid varchar(50),
+ModifiedDate varchar(50)
+) 
+PRIMARY INDEX Sales_Customer_stg(CustomerID);
+DEFINE
+CustomerID (varchar(50)),
+PersonID (varchar(50)),
+StoreID (varchar(50)),
+TerritoryID (varchar(50)),
+AccountNumber (varchar(50)),
+rowguid (varchar(50)),
+ModifiedDate (varchar(50))
+FILE="D:\FYP\Text files\Sales_Customer_Stg.txt";
+
+begin loading
+Sales_Customer_stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into Sales_Customer_stg
+(
+CustomerID,
+PersonID,
+StoreID,
+TerritoryID,
+AccountNumber,
+rowguid,
+ModifiedDate
+)
+ values
+(
+:CustomerID,
+:PersonID,
+:StoreID,
+:TerritoryID,
+:AccountNumber,
+:rowguid,
+:ModifiedDate
+);
+end loading;
+LOGOFF;

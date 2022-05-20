@@ -1,0 +1,47 @@
+.sessions 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext ",";
+DROP TABLE HR_Department_stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+ 
+CREATE SET TABLE HR_Department_stg
+(
+DepartmentID varchar(50),
+Name varchar(50),
+GroupName varchar(50),
+ModifiedDate varchar(50)
+) 
+PRIMARY INDEX HR_Department_stg(SalesOrderID);
+DEFINE
+DepartmentID (varchar(50)),
+Name (varchar(50)),
+GroupName (varchar(50)),
+ModifiedDate (varchar(50))
+FILE="D:\FYP\Text files\HumanResources.Department.txt";
+
+begin loading
+HR_Department_stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into HR_Department_stg
+(
+DepartmentID,
+Name,
+GroupName,
+ModifiedDate
+)
+ values
+(
+:DepartmentID,
+:Name,
+:GroupName,
+:ModifiedDate 
+);
+end loading;
+LOGOFF;

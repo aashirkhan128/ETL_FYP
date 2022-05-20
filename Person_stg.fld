@@ -1,0 +1,83 @@
+.sessions 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext "|";
+DROP TABLE Person_stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+ 
+CREATE SET TABLE Person_stg
+(
+BusinessEntityID varchar(50),
+PersonType varchar(50),
+NameStyle varchar(50),
+Titlle varchar(50),
+FirstName varchar(50),
+MiddleName varchar(50),
+LastName varchar(50),
+Suffix varchar(50),
+EmailPromotion varchar(50),
+AdditionalContactInfo varchar(5000),
+Demographics varchar(5000),
+rowguid varchar(150),
+ModifiedDate varchar(150)
+) 
+PRIMARY INDEX Person_stg(BusinessEntityID);
+DEFINE
+BusinessEntityID (varchar(50)),
+PersonType (varchar(50)),
+NameStyle (varchar(50)),
+Titlle (varchar(50)),
+FirstName (varchar(50)),
+MiddleName (varchar(50)),
+LastName (varchar(50)),
+Suffix (varchar(50)),
+EmailPromotion (varchar(50)),
+AdditionalContactInfo (varchar(5000)),
+Demographics (varchar(5000)),
+rowguid (varchar(150)),
+ModifiedDate (varchar(150))
+FILE="D:\FYP\Text files\Person_p.txt";
+
+begin loading
+Person_stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into Person_stg
+(
+BusinessEntityID,
+PersonType,
+NameStyle,
+Titlle,
+FirstName,
+MiddleName,
+LastName,
+Suffix,
+EmailPromotion,
+AdditionalContactInfo,
+Demographics,
+rowguid,
+ModifiedDate
+)
+ values
+(
+:BusinessEntityID,
+:PersonType,
+:NameStyle,
+:Titlle,
+:FirstName,
+:MiddleName,
+:LastName,
+:Suffix,
+:EmailPromotion,
+:AdditionalContactInfo,
+:Demographics,
+:rowguid,
+:ModifiedDate 
+);
+end loading;
+LOGOFF;

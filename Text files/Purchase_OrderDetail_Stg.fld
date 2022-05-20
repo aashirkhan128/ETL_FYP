@@ -1,0 +1,75 @@
+.sessions 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext ",";
+DROP TABLE Purchase_OrderDetail_Stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+ 
+CREATE SET TABLE Purchase_OrderDetail_Stg
+(
+PurchaseOrderID varchar(50),
+PurchaseOrderDetailID  varchar(50),
+DueDate    varchar(50),
+OrderQty varchar(50),
+ProductID    varchar(50),
+UnitPrice varchar(50),
+LineTotal varchar(50),
+RecievedQty varchar(50),
+RejectedQty varchar(50),
+StockedQty varchar(50),
+ModifiedDate varchar(50)
+) 
+PRIMARY INDEX Purchase_OrderDetail_Stg(PurchaseOrderID);
+DEFINE
+PurchaseOrderID (varchar(50)),
+PurchaseOrderDetailID  (varchar(50)),
+DueDate    (varchar(50)),
+OrderQty (varchar(50)),
+ProductID    (varchar(50)),
+UnitPrice (varchar(50)),
+LineTotal (varchar(50)),
+RecievedQty (varchar(50)),
+RejectedQty (varchar(50)),
+StockedQty (varchar(50)),
+ModifiedDate (varchar(50))
+FILE="D:\FYP\Text files\Purchasing.PurchaseOrderDetail.txt";
+
+begin loading
+Purchase_OrderDetail_Stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into Purchase_OrderDetail_Stg
+(
+PurchaseOrderID,
+PurchaseOrderDetailID,
+DueDate,
+OrderQty,
+ProductID,
+UnitPrice,
+LineTotal,
+RecievedQty,
+RejectedQty,
+StockedQty,
+ModifiedDate
+)
+ values
+(
+:PurchaseOrderID,
+:PurchaseOrderDetailID,
+:DueDate,
+:OrderQty,
+:ProductID,
+:UnitPrice,
+:LineTotal,
+:RecievedQty,
+:RejectedQty,
+:StockedQty,
+:ModifiedDate
+);
+end loading;
+LOGOFF;

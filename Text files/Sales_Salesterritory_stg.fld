@@ -1,0 +1,71 @@
+.sessions 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext "|";
+DROP TABLE Sales_SalesTerritory_stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+ 
+CREATE SET TABLE Sales_SalesTerritory_stg
+(
+TerritoryID varchar(50),
+Name varchar(50),
+CountryRegionCode varchar(50),
+Group_Sales varchar(50),
+SalesYTD varchar(50),
+SalesLastYear varchar(50),
+CostYTD varchar(50),
+CostLastYear varchar(50),
+rowguid varchar(50),
+ModifiedDate varchar(50)
+) 
+PRIMARY INDEX Sales_SalesTerritory_stg(TerritoryID);
+DEFINE
+TerritoryID (varchar(50)),
+Name (varchar(50)),
+CountryRegionCode (varchar(50)),
+Group_Sales (varchar(50)),
+SalesYTD (varchar(50)),
+SalesLastYear (varchar(50)),
+CostYTD (varchar(50)),
+CostLastYear (varchar(50)),
+rowguid (varchar(50)),
+ModifiedDate (varchar(50))
+FILE="D:\FYP\Text files\SalesTerritory.txt";
+
+begin loading
+Sales_SalesTerritory_stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into Sales_SalesTerritory_stg
+(
+TerritoryID,
+Name,
+CountryRegionCode,
+Group_Sales,
+SalesYTD,
+SalesLastYear,
+CostYTD,
+CostLastYear,
+rowguid,
+ModifiedDate
+)
+ values
+(
+:TerritoryID,
+:Name,
+:CountryRegionCode,
+:Group_Sales,
+:SalesYTD,
+:SalesLastYear,
+:CostYTD,
+:CostLastYear,
+:rowguid,
+:ModifiedDate
+);
+end loading;
+LOGOFF;

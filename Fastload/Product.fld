@@ -1,0 +1,131 @@
+.sessions 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext "|";
+DROP TABLE Product_stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+ 
+CREATE SET TABLE Product_stg
+(
+ProductID              varchar(50),
+Name                   varchar(50),
+ProductNumber          varchar(50),
+MakeFlag               varchar(50),
+FinishedGoodsFlag      varchar(50),
+Color                  varchar(50),
+SafetyStockLevel       varchar(50),
+ReorderPoint           varchar(50),
+StandardCost           varchar(50),
+ListPrice              varchar(50),
+Size                   varchar(50),
+SizeUnitMeasureCode    varchar(50),
+WeightUnitMeasureCode  varchar(50),
+Weight                 varchar(50),
+DaysToManufacture      varchar(50),
+ProductLine            varchar(50),
+Calass                  varchar(50),
+Style                  varchar(50),
+ProductSubcategoryID   varchar(50),
+ProductModelID         varchar(50),
+SellStartDate          varchar(50),
+SellEndDate            varchar(50),
+DiscontinuedDate       varchar(50),
+rowguid                varchar(50),
+ModifiedDate           varchar(50)
+) 
+PRIMARY INDEX Product_stg(ProductID);
+DEFINE
+ProductID   (varchar(50)),
+Name  (varchar(50)),
+ProductNumber  (varchar(50)),
+MakeFlag  (varchar(50)),
+FinishedGoodsFlag  (varchar(50)),
+Color  (varchar(50)),
+SafetyStockLevel  (varchar(50)),
+ReorderPoint  (varchar(50)),
+StandardCost (varchar(50)),
+ListPrice (varchar(50)),
+Size (varchar(50)),
+SizeUnitMeasureCode (varchar(50)),
+WeightUnitMeasureCode (varchar(50)),
+Weight (varchar(50)),
+DaysToManufacture (varchar(50)),
+ProductLine (varchar(50)),
+Calass (varchar(50)),
+Style (varchar(50)),
+ProductSubcategoryID (varchar(50)),
+ProductModelID (varchar(50)),
+SellStartDate (varchar(50)),
+SellEndDate (varchar(50)),
+DiscontinuedDate (varchar(50)),
+rowguid (varchar(50)),
+ModifiedDate (varchar(50))
+FILE="D:\FYP\CSV Files\PRODUCTT.txt";
+
+begin loading
+Product_stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into Product_stg
+(
+ProductID,
+Name,
+ProductNumber,
+MakeFlag,
+FinishedGoodsFlag,
+Color,
+SafetyStockLevel,
+ReorderPoint,
+StandardCost,
+ListPrice,
+Size,
+SizeUnitMeasureCode,
+WeightUnitMeasureCode,
+Weight,
+DaysToManufacture,
+ProductLine,
+Calass,
+Style,
+ProductSubcategoryID,
+ProductModelID,
+SellStartDate,
+SellEndDate,
+DiscontinuedDate,
+rowguid,
+ModifiedDate
+)
+ values
+(
+:ProductID,
+:Name,
+:ProductNumber,
+:MakeFlag,
+:FinishedGoodsFlag,
+:Color,
+:SafetyStockLevel,
+:ReorderPoint,
+:StandardCost,
+:ListPrice,
+:Size,
+:SizeUnitMeasureCode,
+:WeightUnitMeasureCode,
+:Weight,
+:DaysToManufacture,
+:ProductLine,
+:Calass,
+:Style,
+:ProductSubcategoryID,
+:ProductModelID,
+:SellStartDate,
+:SellEndDate,
+:DiscontinuedDate,
+:rowguid,
+:ModifiedDate
+);
+end loading;
+LOGOFF;

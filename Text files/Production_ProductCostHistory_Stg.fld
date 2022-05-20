@@ -1,0 +1,51 @@
+.sessions 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext ",";
+DROP TABLE Production_ProductCostHistory_Stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+ 
+CREATE SET TABLE Production_ProductCostHistory_Stg
+(
+ProductID  varchar(50),
+StartDate    varchar(50),
+EndDate    varchar(50),
+StandardCost    varchar(50),
+ModifiedDate varchar(50)
+) 
+PRIMARY INDEX Production_ProductCostHistory_Stg(ProductID);
+DEFINE
+ProductID  (varchar(50)),
+StartDate    (varchar(50)),
+EndDate    (varchar(50)),
+StandardCost    (varchar(50)),
+ModifiedDate (varchar(50))
+FILE="D:\FYP\Text files\Production.ProductCostHistory.txt";
+
+begin loading
+Production_ProductCostHistory_Stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into Production_ProductCostHistory_Stg
+(
+ProductID,
+StartDate,
+EndDate,
+StandardCost,
+ModifiedDate
+)
+ values
+(
+:ProductID,
+:StartDate,
+:EndDate,
+:StandardCost,
+:ModifiedDate
+);
+end loading;
+LOGOFF;

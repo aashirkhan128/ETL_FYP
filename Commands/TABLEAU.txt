@@ -1,0 +1,17 @@
+
+
+SEL CAST(ModifiedData AS DATE)DT,SUM(SalesOrderID)
+FROM CORE.SalesOrderDetail
+GROUP BY 1;
+Select Count(Distinct ProductID) from CORE.TransactionHistory where TransactionType = 'W'
+Select Count(Distinct ProductID) from CORE.TransactionHistory where TransactionType = 'S'
+Select Count(TransactionID) from CORE.TransactionHistory where TransactionType = 'P'
+Sel Distinct TransactionType,ProductID from CORE.TransactionHistory
+SEL CAST(ModifiedDate AS DATE)DT,SUM(ProductID), TransactionType
+FROM CORE.TransactionHistory
+GROUP BY 1;
+SEL COUNT(DISTINCT ProductID) from CORE.SalesOrderDetail
+SEL COUNT(DISTINCT ProductID) from CORE.Production_ProductInventory
+SEL COUNT(DISTINCT LocationID) from CORE.Production_ProductInventory
+SEL DISTINCT ProductID,Sum(Quantity) from CORE.Production_ProductInventory
+Group BY 1;

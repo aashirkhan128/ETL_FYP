@@ -1,0 +1,67 @@
+.sessions 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext "|";
+DROP TABLE Production_TransactionHistoryArchive_Stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+ 
+CREATE SET TABLE Production_TransactionHistoryArchive_Stg
+(
+TransactionID   varchar(50),
+ProductID     varchar(50),
+ReferenceOrderID varchar(50),
+ReferenceOrderLineID varchar(50),
+TransactionDate varchar(50) ,
+TransactionType varchar(50),
+Quantity  varchar(50),
+ActualCost  varchar(50),
+ModifiedDate varchar(50)
+) 
+PRIMARY INDEX Production_TransactionHistoryArchive_Stg(TransactionID);
+DEFINE
+TransactionID   (varchar(50)),
+ProductID     (varchar(50)),
+ReferenceOrderID (varchar(50)),
+ReferenceOrderLineID (varchar(50)),
+TransactionDate (varchar(50)),
+TransactionType (varchar(50)),
+Quantity  (varchar(50)),
+ActualCost  (varchar(50)),
+ModifiedDate (varchar(50))
+FILE="D:\FYP\Fastload\TransactionHistoryArchive_02.txt";
+
+begin loading
+Production_TransactionHistoryArchive_Stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into Production_TransactionHistoryArchive_Stg
+(
+TransactionID,
+ProductID,
+ReferenceOrderID,
+ReferenceOrderLineID,
+TransactionDate,
+TransactionType,
+Quantity,
+ActualCost,
+ModifiedDate
+)
+ values
+(
+:TransactionID,
+:ProductID,
+:ReferenceOrderID,
+:ReferenceOrderLineID,
+:TransactionDate,
+:TransactionType,
+:Quantity,
+:ActualCost,
+:ModifiedDate
+);
+end loading;
+LOGOFF;

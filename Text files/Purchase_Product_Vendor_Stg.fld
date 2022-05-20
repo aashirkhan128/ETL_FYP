@@ -1,0 +1,71 @@
+.sessions 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext ",";
+DROP TABLE Purchase_Product_Vendor_Stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+ 
+CREATE SET TABLE Purchase_Product_Vendor_Stg
+(
+ProductID varchar(50),
+BusinessEntityID  varchar(50),
+AverageLeadTime    varchar(50),
+StandardPrice varchar(50),
+LastReceiptCost    varchar(50),
+LastReceiptDate    varchar(50),
+MinOrderQty    varchar(50),
+MaxOrderQty   varchar(50),
+UnitMeasureCode   varchar(50),
+ModifiedDate varchar(50)
+) 
+PRIMARY INDEX Purchase_Product_Vendor_Stg(ProductID);
+DEFINE
+ProductID (varchar(50)),
+BusinessEntityID  (varchar(50)),
+AverageLeadTime    (varchar(50)),
+StandardPrice (varchar(50)),
+LastReceiptCost    (varchar(50)),
+LastReceiptDate    (varchar(50)),
+MinOrderQty    (varchar(50)),
+MaxOrderQty   (varchar(50)),
+UnitMeasureCode   (varchar(50)),
+ModifiedDate (varchar(50))
+FILE="D:\FYP\Text files\Purchasing.ProductVendor.txt";
+
+begin loading
+Purchase_Product_Vendor_Stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into Purchase_Product_Vendor_Stg
+(
+ProductID,
+BusinessEntityID,
+AverageLeadTime,
+StandardPrice,
+LastReceiptCost,
+LastReceiptDate,
+MinOrderQty,
+MaxOrderQty,
+UnitMeasureCode,
+ModifiedDate 
+)
+ values
+(
+:ProductID,
+:BusinessEntityID,
+:AverageLeadTime,
+:StandardPrice,
+:LastReceiptCost,
+:LastReceiptDate,
+:MinOrderQty,
+:MaxOrderQty,
+:UnitMeasureCode,
+:ModifiedDate 
+);
+end loading;
+LOGOFF;

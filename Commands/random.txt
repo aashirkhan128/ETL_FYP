@@ -1,0 +1,76 @@
+select * from Staging.Production_TransactionHistoryArchive_Stg;
+select* from Staging.Production_TransactionHistory_Stg;
+select* from Staging.Sales_SalesOrderDetail_Stg;
+select* from Staging.Production_WorkOrder_Stg;
+
+
+
+
+select * from Staging.Production_TransactionHistoryArchive_Stg_HIST;
+select* from Staging.Production_TransactionHistory_Stg_HIST;
+select* from Staging.Sales_SalesOrderDetail_Stg_HIST;
+select* from Staging.Production_WorkOrder_Stg_HIST;
+
+Select
+CAST (TRANSACTIONID AS INTEGER)
+FROM Staging.Production_TransactionHistoryArchive_Stg_HIST;
+
+
+
+
+CT Staging.Production_WorkOrder_Stg_HIST AS Staging.Production_WorkOrder_Stg WITH DATA;
+
+
+HELP TABLE Staging.Production_WorkOrder_Stg
+
+SEL COUNT(*) FROM Staging.Production_WorkOrder_Stg_HIST
+
+
+INSERT INTO Staging.Production_WorkOrder_Stg_HIST
+
+SEL 
+WorkOrderID+13,
+ProductID,
+OrderQty*14,
+StockedQty*14,
+ScrappedQty*14,
+StartDate,
+EndDate,
+DueDate,
+ScrapReasonID+13,
+ModifiedDate                 
+FROM Staging.Production_WorkOrder_Stg
+
+
+SEL TransactionID,COUNT(*)
+FROM Staging.Production_TransactionHistory_Stg
+GROUP BY 1
+DEL  FROM Staging.Production_TransactionHistoryArchive_Stg_HIST
+WHERE TransactionID='TransactionID';
+
+
+Create SET table Core.TransactionHistoryArchive, FALLBACK
+(TransactionID  int,
+ProductID  int,
+ReferenceOrderID  int,
+ReferenceOrderLineID int,
+TransactionDate DATE FORMAT 'yyyy-mm-dd',
+TransactionType varchar(50),
+Quantity  int,
+ActualCost decimal(8,2),
+ModifiedDate DATE FORMAT 'yyyy-mm-dd')
+UNIQUE PRIMARY INDEX (TransactionID);
+
+INSERT INTO Core.TransactionHistoryArchive
+Select TransactionID,
+ProductID,
+ReferenceOrderID,
+ReferenceOrderLineID,
+TransactionDate,
+TransactionType,
+Quantity,
+ActualCost,
+ModifiedDate
+from Staging.Production_TransactionHistoryArchive_Stg_HIST;
+
+

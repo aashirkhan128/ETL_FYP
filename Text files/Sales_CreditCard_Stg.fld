@@ -1,0 +1,55 @@
+.sessions 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext ",";
+DROP TABLE Sales_CreditCard_Stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+ 
+CREATE SET TABLE Sales_CreditCard_Stg
+(
+CreditCardID   varchar(50),
+CardType     varchar(50),
+CardNumber varchar(50),
+ExpMonth varchar(50),
+ExpYear varchar(50) ,
+ModifiedDate varchar(50)
+) 
+PRIMARY INDEX Sales_CreditCard_Stg(CreditCardID);
+DEFINE
+CreditCardID   (varchar(50)),
+CardType     (varchar(50)),
+CardNumber (varchar(50)),
+ExpMonth (varchar(50)),
+ExpYear (varchar(50)),
+ModifiedDate (varchar(50))
+FILE="D:\FYP\Text files\Sales.CreditCard.txt";
+
+begin loading
+Sales_CreditCard_Stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into Sales_CreditCard_Stg
+(
+CreditCardID,
+CardType,
+CardNumber,
+ExpMonth,
+ExpYear,
+ModifiedDate 
+)
+ values
+(
+:CreditCardID,
+:CardType,
+:CardNumber,
+:ExpMonth,
+:ExpYear,
+:ModifiedDate 
+);
+end loading;
+LOGOFF;

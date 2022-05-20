@@ -1,0 +1,63 @@
+.sessions 2;
+ERRLIMIT 40;
+.LOGON 192.168.168.128 /dbc,dbc;
+DATABASE Staging;
+.set record vartext ",";
+DROP TABLE Purchase_Vendor_Stg;
+DROP TABLE Test_stg_ERROR1;
+DROP TABLE Test_stg_ERROR2;
+ 
+CREATE SET TABLE Purchase_Vendor_Stg
+(
+BusinessEntityID  varchar(50),
+AccountNumber    varchar(50),
+Name varchar(50),
+CreditRating    varchar(50),
+PreferredVendorStatus    varchar(50),
+ActiveFlag    varchar(50),
+PurchasingWebServiceURL   varchar(50),
+ModifiedDate varchar(50)
+) 
+PRIMARY INDEX Purchase_Vendor_Stg(BusinessEntityID);
+DEFINE
+BusinessEntityID  (varchar(50)),
+AccountNumber    (varchar(50)),
+Name (varchar(50)),
+CreditRating    (varchar(50)),
+PreferredVendorStatus    (varchar(50)),
+ActiveFlag    (varchar(50)),
+PurchasingWebServiceURL   (varchar(50)),
+ModifiedDate (varchar(50))
+FILE="D:\FYP\Text files\Purchasing.Vendor.txt";
+
+begin loading
+Purchase_Vendor_Stg
+errorfiles
+Test_stg_ERROR1,
+Test_stg_ERROR2
+CHECKPOINT 100000;
+
+insert into Purchase_Vendor_Stg
+(
+BusinessEntityID,
+AccountNumber,
+Name,
+CreditRating,
+PreferredVendorStatus,
+ActiveFlag,
+PurchasingWebServiceURL,
+ModifiedDate
+)
+ values
+(
+:BusinessEntityID,
+:AccountNumber,
+:Name,
+:CreditRating,
+:PreferredVendorStatus,
+:ActiveFlag,
+:PurchasingWebServiceURL,
+:ModifiedDate
+);
+end loading;
+LOGOFF;
